@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WebApplication35.Models.viewModel.vehicleViewModel>
+
+@{
+    ViewBag.Title = "getvehicle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>getvehicle</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.vehicleid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vehicletype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vehicleNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vehiclePrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.photo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.vehicleid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vehicletype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vehicleNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vehiclePrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.photo)
+            <img src="~/photo/@item.photo"height="50" width="50" />
+        </td>
+        <td>
+           
+            @Html.ActionLink("hirevehicle", "hirevehicle", new {  id=item.vehicleid  }) |
+            
+        </td>
+    </tr>
+}
+
+</table>

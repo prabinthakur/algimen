@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a7d76b735a2e49a3950dc094722eaa86" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="AllgemeindbModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AllgemeindbModel.tblbook" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AllgemeindbModel.tblconfirmation" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AllgemeindbModel.tblCustomer" Width="1.5" PointX="2.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="AllgemeindbModel.tbldriver" Width="1.5" PointX="5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="AllgemeindbModel.tbldriverlist" Width="1.5" PointX="2.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AllgemeindbModel.tblrole" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AllgemeindbModel.tblstaff" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AllgemeindbModel.tbluser" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="AllgemeindbModel.tbluserRole" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AllgemeindbModel.tblVehicel" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="AllgemeindbModel.FK_tbldriver_tblCustomer" ManuallyRouted="false" />
+        <AssociationConnector Association="AllgemeindbModel.FK_tbldriver_tbldriverlist" ManuallyRouted="false" />
+        <AssociationConnector Association="AllgemeindbModel.FK_tbluserRole_tblrole1" ManuallyRouted="false" />
+        <AssociationConnector Association="AllgemeindbModel.FK_tbluserRole_tbluser" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

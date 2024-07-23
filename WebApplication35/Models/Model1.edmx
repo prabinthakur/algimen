@@ -1,0 +1,535 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AllgemeindbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblbook">
+          <Key>
+            <PropertyRef Name="bookid" />
+          </Key>
+          <Property Name="bookid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="bookdate" Type="date" />
+          <Property Name="confiramtion" Type="nvarchar" MaxLength="50" />
+          <Property Name="pickup" Type="nvarchar" MaxLength="50" />
+          <Property Name="drop" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblconfirmation">
+          <Key>
+            <PropertyRef Name="confirmationid" />
+          </Key>
+          <Property Name="confirmationid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="confirmation" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="phoneno" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbldriver">
+          <Key>
+            <PropertyRef Name="hireid" />
+          </Key>
+          <Property Name="hireid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="drivertype" Type="nvarchar" MaxLength="50" />
+          <Property Name="cutomerid" Type="int" />
+          <Property Name="hiredate" Type="date" />
+          <Property Name="salary" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="driverid" Type="int" />
+        </EntityType>
+        <EntityType Name="tbldriverlist">
+          <Key>
+            <PropertyRef Name="driverid" />
+          </Key>
+          <Property Name="driverid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="drivername" Type="nvarchar" MaxLength="50" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+          <Property Name="salary" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="experience" Type="int" />
+        </EntityType>
+        <EntityType Name="tblrole">
+          <Key>
+            <PropertyRef Name="Roleid" />
+          </Key>
+          <Property Name="Roleid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rolename" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblstaff">
+          <Key>
+            <PropertyRef Name="staff_id" />
+          </Key>
+          <Property Name="staff_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="post" Type="nvarchar" MaxLength="50" />
+          <Property Name="salary" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="hiredate" Type="date" />
+        </EntityType>
+        <EntityType Name="tbluser">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbluserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Userid" Type="int" />
+          <Property Name="Roleid" Type="int" />
+        </EntityType>
+        <EntityType Name="tblVehicel">
+          <Key>
+            <PropertyRef Name="VehicleId" />
+          </Key>
+          <Property Name="VehicleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vehicletype" Type="nvarchar" MaxLength="50" />
+          <Property Name="VehicleNumber" Type="int" />
+          <Property Name="vehiclePrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="vehiclePhoto" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tbldriver_tblCustomer">
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbldriver" Type="Self.tbldriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="tbldriver">
+              <PropertyRef Name="cutomerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbldriver_tbldriverlist">
+          <End Role="tbldriverlist" Type="Self.tbldriverlist" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbldriver" Type="Self.tbldriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbldriverlist">
+              <PropertyRef Name="driverid" />
+            </Principal>
+            <Dependent Role="tbldriver">
+              <PropertyRef Name="driverid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbluserRole_tblrole1">
+          <End Role="tblrole" Type="Self.tblrole" Multiplicity="0..1" />
+          <End Role="tbluserRole" Type="Self.tbluserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblrole">
+              <PropertyRef Name="Roleid" />
+            </Principal>
+            <Dependent Role="tbluserRole">
+              <PropertyRef Name="Roleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbluserRole_tbluser">
+          <End Role="tbluser" Type="Self.tbluser" Multiplicity="0..1" />
+          <End Role="tbluserRole" Type="Self.tbluserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbluser">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="tbluserRole">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AllgemeindbModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblbook" EntityType="Self.tblbook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblconfirmation" EntityType="Self.tblconfirmation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCustomer" EntityType="Self.tblCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbldriver" EntityType="Self.tbldriver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbldriverlist" EntityType="Self.tbldriverlist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblrole" EntityType="Self.tblrole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblstaff" EntityType="Self.tblstaff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbluser" EntityType="Self.tbluser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbluserRole" EntityType="Self.tbluserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVehicel" EntityType="Self.tblVehicel" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbldriver_tblCustomer" Association="Self.FK_tbldriver_tblCustomer">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tbldriver" EntitySet="tbldriver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbldriver_tbldriverlist" Association="Self.FK_tbldriver_tbldriverlist">
+            <End Role="tbldriverlist" EntitySet="tbldriverlist" />
+            <End Role="tbldriver" EntitySet="tbldriver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbluserRole_tblrole1" Association="Self.FK_tbluserRole_tblrole1">
+            <End Role="tblrole" EntitySet="tblrole" />
+            <End Role="tbluserRole" EntitySet="tbluserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbluserRole_tbluser" Association="Self.FK_tbluserRole_tbluser">
+            <End Role="tbluser" EntitySet="tbluser" />
+            <End Role="tbluserRole" EntitySet="tbluserRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AllgemeindbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblbook">
+          <Key>
+            <PropertyRef Name="bookid" />
+          </Key>
+          <Property Name="bookid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="bookdate" Type="DateTime" Precision="0" />
+          <Property Name="confiramtion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pickup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="drop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblconfirmation">
+          <Key>
+            <PropertyRef Name="confirmationid" />
+          </Key>
+          <Property Name="confirmationid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="confirmation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phoneno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbldrivers" Relationship="Self.FK_tbldriver_tblCustomer" FromRole="tblCustomer" ToRole="tbldriver" />
+        </EntityType>
+        <EntityType Name="tbldriver">
+          <Key>
+            <PropertyRef Name="hireid" />
+          </Key>
+          <Property Name="hireid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="drivertype" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cutomerid" Type="Int32" />
+          <Property Name="hiredate" Type="DateTime" Precision="0" />
+          <Property Name="salary" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="driverid" Type="Int32" />
+          <NavigationProperty Name="tblCustomer" Relationship="Self.FK_tbldriver_tblCustomer" FromRole="tbldriver" ToRole="tblCustomer" />
+          <NavigationProperty Name="tbldriverlist" Relationship="Self.FK_tbldriver_tbldriverlist" FromRole="tbldriver" ToRole="tbldriverlist" />
+        </EntityType>
+        <EntityType Name="tbldriverlist">
+          <Key>
+            <PropertyRef Name="driverid" />
+          </Key>
+          <Property Name="driverid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="drivername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="salary" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="experience" Type="Int32" />
+          <NavigationProperty Name="tbldrivers" Relationship="Self.FK_tbldriver_tbldriverlist" FromRole="tbldriverlist" ToRole="tbldriver" />
+        </EntityType>
+        <EntityType Name="tblrole">
+          <Key>
+            <PropertyRef Name="Roleid" />
+          </Key>
+          <Property Name="Roleid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rolename" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbluserRoles" Relationship="Self.FK_tbluserRole_tblrole1" FromRole="tblrole" ToRole="tbluserRole" />
+        </EntityType>
+        <EntityType Name="tblstaff">
+          <Key>
+            <PropertyRef Name="staff_id" />
+          </Key>
+          <Property Name="staff_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="post" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="salary" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="hiredate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="tbluser">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbluserRoles" Relationship="Self.FK_tbluserRole_tbluser" FromRole="tbluser" ToRole="tbluserRole" />
+        </EntityType>
+        <EntityType Name="tbluserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Userid" Type="Int32" />
+          <Property Name="Roleid" Type="Int32" />
+          <NavigationProperty Name="tblrole" Relationship="Self.FK_tbluserRole_tblrole1" FromRole="tbluserRole" ToRole="tblrole" />
+          <NavigationProperty Name="tbluser" Relationship="Self.FK_tbluserRole_tbluser" FromRole="tbluserRole" ToRole="tbluser" />
+        </EntityType>
+        <EntityType Name="tblVehicel">
+          <Key>
+            <PropertyRef Name="VehicleId" />
+          </Key>
+          <Property Name="VehicleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vehicletype" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VehicleNumber" Type="Int32" />
+          <Property Name="vehiclePrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="vehiclePhoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_tbldriver_tblCustomer">
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbldriver" Type="Self.tbldriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="tbldriver">
+              <PropertyRef Name="cutomerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbldriver_tbldriverlist">
+          <End Role="tbldriverlist" Type="Self.tbldriverlist" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbldriver" Type="Self.tbldriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbldriverlist">
+              <PropertyRef Name="driverid" />
+            </Principal>
+            <Dependent Role="tbldriver">
+              <PropertyRef Name="driverid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbluserRole_tblrole1">
+          <End Role="tblrole" Type="Self.tblrole" Multiplicity="0..1" />
+          <End Role="tbluserRole" Type="Self.tbluserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblrole">
+              <PropertyRef Name="Roleid" />
+            </Principal>
+            <Dependent Role="tbluserRole">
+              <PropertyRef Name="Roleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbluserRole_tbluser">
+          <End Role="tbluser" Type="Self.tbluser" Multiplicity="0..1" />
+          <End Role="tbluserRole" Type="Self.tbluserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbluser">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="tbluserRole">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AllgemeindbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tblbooks" EntityType="Self.tblbook" />
+          <EntitySet Name="tblconfirmations" EntityType="Self.tblconfirmation" />
+          <EntitySet Name="tblCustomers" EntityType="Self.tblCustomer" />
+          <EntitySet Name="tbldrivers" EntityType="Self.tbldriver" />
+          <EntitySet Name="tbldriverlists" EntityType="Self.tbldriverlist" />
+          <EntitySet Name="tblroles" EntityType="Self.tblrole" />
+          <EntitySet Name="tblstaffs" EntityType="Self.tblstaff" />
+          <EntitySet Name="tblusers" EntityType="Self.tbluser" />
+          <EntitySet Name="tbluserRoles" EntityType="Self.tbluserRole" />
+          <EntitySet Name="tblVehicels" EntityType="Self.tblVehicel" />
+          <AssociationSet Name="FK_tbldriver_tblCustomer" Association="Self.FK_tbldriver_tblCustomer">
+            <End Role="tblCustomer" EntitySet="tblCustomers" />
+            <End Role="tbldriver" EntitySet="tbldrivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbldriver_tbldriverlist" Association="Self.FK_tbldriver_tbldriverlist">
+            <End Role="tbldriverlist" EntitySet="tbldriverlists" />
+            <End Role="tbldriver" EntitySet="tbldrivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbluserRole_tblrole1" Association="Self.FK_tbluserRole_tblrole1">
+            <End Role="tblrole" EntitySet="tblroles" />
+            <End Role="tbluserRole" EntitySet="tbluserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbluserRole_tbluser" Association="Self.FK_tbluserRole_tbluser">
+            <End Role="tbluser" EntitySet="tblusers" />
+            <End Role="tbluserRole" EntitySet="tbluserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AllgemeindbModelStoreContainer" CdmEntityContainer="AllgemeindbEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AllgemeindbModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblbooks">
+            <EntityTypeMapping TypeName="AllgemeindbModel.tblbook">
+              <MappingFragment StoreEntitySet="tblbook">
+                <ScalarProperty Name="bookid" ColumnName="bookid" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="bookdate" ColumnName="bookdate" />
+                <ScalarProperty Name="confiramtion" ColumnName="confiramtion" />
+                <ScalarProperty Name="pickup" ColumnName="pickup" />
+                <ScalarProperty Name="drop" ColumnName="drop" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblconfirmations">
+            <EntityTypeMapping TypeName="AllgemeindbModel.tblconfirmation">
+              <MappingFragment StoreEntitySet="tblconfirmation">
+                <ScalarProperty Name="confirmationid" ColumnName="confirmationid" />
+                <ScalarProperty Name="confirmation" ColumnName="confirmation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCustomers">
+            <EntityTypeMapping TypeName="AllgemeindbModel.tblCustomer">
+              <MappingFragment StoreEntitySet="tblCustomer">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="phoneno" ColumnName="phoneno" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbldrivers">
+            <EntityTypeMapping TypeName="AllgemeindbModel.tbldriver">
+              <MappingFragment StoreEntitySet="tbldriver">
+                <ScalarProperty Name="hireid" ColumnName="hireid" />
+                <ScalarProperty Name="drivertype" ColumnName="drivertype" />
+                <ScalarProperty Name="cutomerid" ColumnName="cutomerid" />
+                <ScalarProperty Name="hiredate" ColumnName="hiredate" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="driverid" ColumnName="driverid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbldriverlists">
+            <EntityTypeMapping TypeName="AllgemeindbModel.tbldriverlist">
+              <MappingFragment StoreEntitySet="tbldriverlist">
+                <ScalarProperty Name="driverid" ColumnName="driverid" />
+                <ScalarProperty Name="drivername" ColumnName="drivername" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="experience" ColumnName="experience" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblroles">
+            <EntityTypeMapping TypeName="AllgemeindbModel.tblrole">
+              <MappingFragment StoreEntitySet="tblrole">
+                <ScalarProperty Name="Roleid" ColumnName="Roleid" />
+                <ScalarProperty Name="Rolename" ColumnName="Rolename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblstaffs">
+            <EntityTypeMapping TypeName="AllgemeindbModel.tblstaff">
+              <MappingFragment StoreEntitySet="tblstaff">
+                <ScalarProperty Name="staff_id" ColumnName="staff_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="post" ColumnName="post" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="hiredate" ColumnName="hiredate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblusers">
+            <EntityTypeMapping TypeName="AllgemeindbModel.tbluser">
+              <MappingFragment StoreEntitySet="tbluser">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbluserRoles">
+            <EntityTypeMapping TypeName="AllgemeindbModel.tbluserRole">
+              <MappingFragment StoreEntitySet="tbluserRole">
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="Roleid" ColumnName="Roleid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVehicels">
+            <EntityTypeMapping TypeName="AllgemeindbModel.tblVehicel">
+              <MappingFragment StoreEntitySet="tblVehicel">
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="Vehicletype" ColumnName="Vehicletype" />
+                <ScalarProperty Name="VehicleNumber" ColumnName="VehicleNumber" />
+                <ScalarProperty Name="vehiclePrice" ColumnName="vehiclePrice" />
+                <ScalarProperty Name="vehiclePhoto" ColumnName="vehiclePhoto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
